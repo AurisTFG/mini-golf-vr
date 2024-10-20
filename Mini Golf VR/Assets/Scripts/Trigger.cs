@@ -9,8 +9,10 @@ public class Trigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("Ball"))
         {
+            System.Console.WriteLine("LYGIS PEREITAS");
             StartCoroutine(RespawnAfterDelay(other, new Vector3(1.54f, 0.148f, 1.832f), 1.0f));
         }
 
