@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class NextLevel : MonoBehaviour
+public class FinishTrigger : MonoBehaviour
 {
     public uint currentLevel;
     public GameObject nextLevelPosition;
@@ -39,6 +39,8 @@ public class NextLevel : MonoBehaviour
         if (_celebrationAudio != null)
             _celebrationAudio.Play();
 
+        LevelFinishUI.Instance.ShowLevelCompleteUI(currentLevel);
+
         Player.Instance.SpawnPosition = nextLevelPosition;
         Player.Instance.CurrentLevel = currentLevel + 1;
 
@@ -51,5 +53,7 @@ public class NextLevel : MonoBehaviour
 
         if (_celebrationAudio != null)
             _celebrationAudio.Stop();
+
+        LevelFinishUI.Instance.HideLevelCompleteUI();
     }
 }
