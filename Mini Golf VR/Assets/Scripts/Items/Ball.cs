@@ -9,8 +9,6 @@ public class Ball : RespawnableItem
 
     private TrailRenderer trailRenderer;
     private Rigidbody rb;
-    private Color trailStartColor = new Color(1f, 1f, 1f, 1.0f); // End color (transparent)
-    private Color trailEndColor = new Color(1f, 1f, 1f, 0f); // End color (transparent)
 
     private void Awake()
     {
@@ -26,8 +24,6 @@ public class Ball : RespawnableItem
         rb.drag = friction;
 
         trailRenderer.time = trailDuration; // Set how long the trail lasts
-        trailRenderer.startColor = trailStartColor; // Set the starting color of the trail
-        trailRenderer.endColor = trailEndColor; // Set the ending color of the trail (transparent)
         trailRenderer.startWidth = startWidth; // Set the starting width of the trail
         trailRenderer.endWidth = endWidth; // Set the ending width of the trail
 
@@ -38,7 +34,6 @@ public class Ball : RespawnableItem
 
         // Ensure TrailRenderer uses a transparent material
         Material transparentMaterial = new(Shader.Find("Sprites/Default"));
-        transparentMaterial.SetColor("_Color", new Color(1f, 1f, 1f, 1.0f)); // Set the material to semi-transparent
         trailRenderer.material = transparentMaterial;
 
         trailRenderer.enabled = false;
