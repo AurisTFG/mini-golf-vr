@@ -54,6 +54,7 @@ public class Ball : RespawnableItem
     private void OnStopMoving()
     {
         rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
         rb.rotation = Quaternion.identity;
 
         teleportAnchor.SetActive(true);
