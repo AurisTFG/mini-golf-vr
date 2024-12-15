@@ -9,7 +9,6 @@ public class Ball : RespawnableItem
 
     private Rigidbody rb;
     private TrailRenderer trailRenderer;
-    private GameObject teleportAnchor;
 
     private void Awake()
     {
@@ -21,7 +20,6 @@ public class Ball : RespawnableItem
     {
         rb = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();
-        teleportAnchor = GameObject.Find("Teleport Anchor");
 
         rb.drag = friction;
 
@@ -48,7 +46,6 @@ public class Ball : RespawnableItem
     {
         trailRenderer.enabled = true;
 
-        teleportAnchor.SetActive(false);
     }
 
     private void OnStopMoving()
@@ -57,7 +54,6 @@ public class Ball : RespawnableItem
         rb.angularVelocity = Vector3.zero;
         rb.rotation = Quaternion.identity;
 
-        teleportAnchor.SetActive(true);
     }
 
     private void Update()
@@ -70,11 +66,5 @@ public class Ball : RespawnableItem
         {
             OnStartMoving();
         }
-    }
-
-    private void LateUpdate() 
-    {
-        // just in case, make sure that anchor's rotation is not inherited from the parent (ball)
-        teleportAnchor.transform.rotation = Quaternion.identity;
     }
 }
