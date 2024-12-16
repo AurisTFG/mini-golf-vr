@@ -1007,7 +1007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883230248363655243, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_EnableFarCasting
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883230248363655243, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_EnableNearCasting
@@ -3536,10 +3536,6 @@ PrefabInstance:
     - target: {fileID: 7605883980436989315, guid: 94d0d551682b3184e9dc8d1a9c70bf69, type: 3}
       propertyPath: m_Name
       value: ClubDefault
-      objectReference: {fileID: 0}
-    - target: {fileID: 7605883980436989315, guid: 94d0d551682b3184e9dc8d1a9c70bf69, type: 3}
-      propertyPath: m_Layer
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7605883980436989315, guid: 94d0d551682b3184e9dc8d1a9c70bf69, type: 3}
       propertyPath: m_IsActive
