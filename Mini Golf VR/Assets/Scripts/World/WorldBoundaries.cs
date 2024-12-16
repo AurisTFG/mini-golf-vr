@@ -4,8 +4,6 @@ public class WorldBoundaries : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("World boundaries triggered.");
-
         if (other.CompareTag("Ball"))
         {
             Player.Instance.RespawnBall();

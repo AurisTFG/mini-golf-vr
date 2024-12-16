@@ -1,4 +1,11 @@
+using System.Collections;
 using UnityEngine;
+
+enum BallState
+{
+    Moving,
+    Stopped
+}
 
 public class Ball : RespawnableItem
 {
@@ -7,8 +14,17 @@ public class Ball : RespawnableItem
     public float startWidth = 0.1f;
     public float endWidth = 0.0f;
 
-    private Rigidbody rb;
+    private Rigidbody ballRigidbody;
     private TrailRenderer trailRenderer;
+
+    private BallState state = BallState.Stopped;
+
+    private int clubLayerId = -1;
+    private int ballLayerId = -1;
+
+    private float lastVelocity;
+    private float currentVelocity;
+    private float changeInVelocity;
 
     private void Awake()
     {
@@ -18,11 +34,10 @@ public class Ball : RespawnableItem
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        ballRigidbody = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();
 
-        rb.drag = friction;
-
+        ballRigidbody.drag = friction;
         trailRenderer.time = trailDuration;
         trailRenderer.startWidth = startWidth;
         trailRenderer.endWidth = endWidth;
@@ -32,39 +47,65 @@ public class Ball : RespawnableItem
         trailRenderer.widthCurve = curve;
         trailRenderer.material = new(Shader.Find("Sprites/Default"));
         trailRenderer.enabled = false;
+
+        clubLayerId = LayerMask.NameToLayer("Club");
+        ballLayerId = LayerMask.NameToLayer("Ball");
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Club"))
         {
-            OnStopMoving();
+            if (state == BallState.Stopped)
+            {
+                OnCollisionWithClub();
+            }
         }
     }
 
-    private void OnStartMoving()
+    private void FixedUpdate()
+    {
+        currentVelocity = ballRigidbody.velocity.magnitude;
+        changeInVelocity = currentVelocity - lastVelocity;
+
+        if (currentVelocity < 0.1f &&
+            changeInVelocity <= 0.0f && changeInVelocity >= -1.0f &&
+            state == BallState.Moving
+            )
+        {
+            StopMovingBall();
+        }
+
+        lastVelocity = ballRigidbody.velocity.magnitude;
+    }
+
+    private void OnCollisionWithClub()
+    {
+        StartMovingBall();
+    }
+
+    private void StartMovingBall()
     {
         trailRenderer.enabled = true;
 
+        ModifyCollision(false);
+
+        state = BallState.Moving;
     }
 
-    private void OnStopMoving()
+    private void StopMovingBall()
     {
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.rotation = Quaternion.identity;
+        ballRigidbody.velocity = Vector3.zero;
+        ballRigidbody.angularVelocity = Vector3.zero;
+        ballRigidbody.rotation = Quaternion.identity;
 
+        ModifyCollision(true);
+
+        state = BallState.Stopped;
     }
 
-    private void Update()
+    private void ModifyCollision(bool enable)
     {
-        if (rb.velocity.magnitude <= 0.1f)
-        {
-            OnStopMoving();
-        }
-        else
-        {
-            OnStartMoving();
-        }
+        Physics.IgnoreLayerCollision(ballLayerId, clubLayerId, !enable);
     }
 }

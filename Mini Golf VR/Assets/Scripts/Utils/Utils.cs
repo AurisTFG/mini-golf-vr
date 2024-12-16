@@ -21,8 +21,6 @@ public static class Utils
 
     private static IEnumerator RespawnWithDelay(GameObject obj, Vector3 position, Quaternion rotation, float delay)
     {
-        Debug.Log("Respawning " + obj.name + " in " + delay + " seconds.");
-
         Renderer renderer = obj.GetComponent<Renderer>();
         Rigidbody rb = obj.GetComponent<Rigidbody>();
 
@@ -38,7 +36,5 @@ public static class Utils
         obj.transform.SetPositionAndRotation(position, rotation);
         if (renderer != null) renderer.enabled = true;
         if (rb != null) { rb.useGravity = true; rb.isKinematic = false; }
-
-        Debug.Log("Respawned " + obj.name + ".");
     }
 }

@@ -1027,7 +1027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3074471628601745017, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_RaycastMask.m_Bits
-      value: 33
+      value: 97
       objectReference: {fileID: 0}
     - target: {fileID: 3549580823586112762, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Layer
@@ -1083,7 +1083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6436123941575367715, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_PhysicsLayerMask.m_Bits
-      value: 1073741825
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6499517531677593257, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Layer
@@ -2755,6 +2755,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3491407523444126538, guid: 118f00aa05c0f3a4bad5bcfa61a42107, type: 3}
+      propertyPath: club
+      value: 
+      objectReference: {fileID: 2072909877}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3489,8 +3493,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 338486657}
     m_Modifications:
+    - target: {fileID: 2687234229215441851, guid: 94d0d551682b3184e9dc8d1a9c70bf69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278661397473746319, guid: 94d0d551682b3184e9dc8d1a9c70bf69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5385566573789852169, guid: 94d0d551682b3184e9dc8d1a9c70bf69, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010423771603387661, guid: 94d0d551682b3184e9dc8d1a9c70bf69, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7117472477541285689, guid: 94d0d551682b3184e9dc8d1a9c70bf69, type: 3}
@@ -3700,7 +3716,7 @@ Camera:
   m_Depth: 10
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5
+    m_Bits: 133
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 0b21e858003983b49aea4f3eb59fd49f, type: 2}
   m_TargetDisplay: 0
