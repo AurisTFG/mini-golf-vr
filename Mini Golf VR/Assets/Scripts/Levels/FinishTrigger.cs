@@ -10,6 +10,8 @@ public class FinishTrigger : MonoBehaviour
     private AudioSource _celebrationAudio;
     private float celebrationDuration = 5.0f;
 
+    private uint totalScore = 0;
+
     private void Start()
     {
         _celebrationParticles = GetComponentInChildren<ParticleSystem>();
@@ -39,7 +41,16 @@ public class FinishTrigger : MonoBehaviour
         if (_celebrationAudio != null)
             _celebrationAudio.Play();
 
-        LevelFinishUI.Instance.ShowLevelCompleteUI(currentLevel);
+        Player.Instance.RecordStrokesForLevel();
+        (string scoreName, uint score) = Player.Instance.CompuneOneResult();
+        totalScore++;
+        LevelFinishUI.Instance.ShowLevelCompleteUI($"{scoreName}!\nScore: {score}\n\nLevel {currentLevel} Completed!");
+
+        if (nextLevelPosition == null)
+        {
+            LevelFinishUI.Instance.ShowLevelCompleteUI($"{scoreName}!\nScore: {score}\n\nLevel {currentLevel} Completed!\n\nGame Finished!!!\nFinal Score:{totalScore}");
+            yield break;
+        }
 
         Player.Instance.SpawnPosition = nextLevelPosition;
         Player.Instance.CurrentLevel = currentLevel + 1;
@@ -48,11 +59,9 @@ public class FinishTrigger : MonoBehaviour
 
         Player.Instance.RespawnEverything();
 
-        if (_celebrationParticles != null)
-            _celebrationParticles.Stop();
+        _celebrationParticles?.Stop();
 
-        if (_celebrationAudio != null)
-            _celebrationAudio.Stop();
+        _celebrationAudio?.Stop();
 
         LevelFinishUI.Instance.HideLevelCompleteUI();
     }

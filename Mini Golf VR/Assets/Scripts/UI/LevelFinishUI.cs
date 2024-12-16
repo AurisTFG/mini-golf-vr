@@ -22,9 +22,9 @@ public class LevelFinishUI : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void ShowLevelCompleteUI(uint levelNumber)
+    public void ShowLevelCompleteUI(string text)
     {
-        levelCompleteText.text = "Level " + levelNumber + " Completed!";
+        levelCompleteText.text = text;
         isUIActive = true;
         levelCompleteCanvas.SetActive(true);
     }

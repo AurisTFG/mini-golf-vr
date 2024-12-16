@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 enum BallState
@@ -13,6 +15,8 @@ public class Ball : RespawnableItem
     public float trailDuration = 2f;
     public float startWidth = 0.1f;
     public float endWidth = 0.0f;
+    public TextMeshProUGUI strokesText;
+    public TextMeshProUGUI parText;
 
     private Rigidbody ballRigidbody;
     private TrailRenderer trailRenderer;
@@ -25,6 +29,8 @@ public class Ball : RespawnableItem
     private float lastVelocity;
     private float currentVelocity;
     private float changeInVelocity;
+
+    private uint currentStrokes = 0;
 
     private void Awake()
     {
@@ -69,7 +75,7 @@ public class Ball : RespawnableItem
         changeInVelocity = currentVelocity - lastVelocity;
 
         if (currentVelocity < 0.1f &&
-            changeInVelocity <= 0.0f && changeInVelocity >= -1.0f &&
+            changeInVelocity <= 0.0f && changeInVelocity >= -0.05f &&
             state == BallState.Moving
             )
         {
@@ -79,13 +85,25 @@ public class Ball : RespawnableItem
         lastVelocity = ballRigidbody.velocity.magnitude;
     }
 
+    public float strokeCooldownTime = 0.5f;
+    private float lastStrokeTime = 0f;
     private void OnCollisionWithClub()
     {
+        if (Time.time - lastStrokeTime >= strokeCooldownTime)
+        {
+            currentStrokes++;
+            SetStrokesText();
+
+            lastStrokeTime = Time.time;
+        }
+
         StartMovingBall();
     }
 
     private void StartMovingBall()
     {
+        Debug.Log("Hit ball");
+
         trailRenderer.enabled = true;
 
         ModifyCollision(false);
@@ -95,6 +113,8 @@ public class Ball : RespawnableItem
 
     private void StopMovingBall()
     {
+        Debug.Log("Stop moving ball");
+
         ballRigidbody.velocity = Vector3.zero;
         ballRigidbody.angularVelocity = Vector3.zero;
         ballRigidbody.rotation = Quaternion.identity;
@@ -107,5 +127,25 @@ public class Ball : RespawnableItem
     private void ModifyCollision(bool enable)
     {
         Physics.IgnoreLayerCollision(ballLayerId, clubLayerId, !enable);
+    }
+
+    public uint GetStrokesAndReset()
+    {
+        uint strokes = currentStrokes;
+
+        currentStrokes = 0;
+        SetStrokesText();
+
+        return strokes;
+    }
+
+    public void SetParText(uint par)
+    {
+        parText.text = $"Par: {par}";
+    }
+
+    public void SetStrokesText()
+    {
+        strokesText.text = $"Strokes: {currentStrokes}";
     }
 }
