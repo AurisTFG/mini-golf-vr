@@ -43,7 +43,7 @@ public class FinishTrigger : MonoBehaviour
 
         Player.Instance.RecordStrokesForLevel();
         (string scoreName, uint score) = Player.Instance.CompuneOneResult();
-        totalScore++;
+        totalScore += score;
         LevelFinishUI.Instance.ShowLevelCompleteUI($"{scoreName}!\nScore: {score}\n\nLevel {currentLevel} Completed!");
 
         if (nextLevelPosition == null)

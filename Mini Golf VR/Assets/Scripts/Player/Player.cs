@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public GameObject Club { get; private set; }
     public GameObject Ball { get; private set; }
 
-    public uint[] parValues = { 1, 2, 2 };
+    private uint[] parValues = { 3, 5, 5, 2, 2 };
     private Dictionary<int, string> scoringTerms = new Dictionary<int, string>()
     {
         {-3, "Albatross" },
